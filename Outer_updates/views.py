@@ -46,7 +46,7 @@ class BindUpdateView(APIView):
             a = 1
             return Response({'success': True}, status=status.HTTP_200_OK)
 
-        except:
-            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'success': False, 'error': e}, status=status.HTTP_400_BAD_REQUEST)
 
 
