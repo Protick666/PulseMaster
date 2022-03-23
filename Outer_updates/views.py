@@ -38,9 +38,7 @@ class BindUpdateView(APIView):
             substring_to_look_for = '.{}.{}'.format(bucket_id, base_domain)
             with open(dest_file) as f1:
                 for line in f1:
-                    # if '$TTL' in line:
-                    #     line_temp = '$TTL\t{}\n'.format(ttl)
-                    #     lines_to_write.append(line_temp)
+
                     if substring_to_look_for in line:
                         if file_version == 'first':
                             line_temp = "*.{}.{}  IN A {}\n".format(bucket_id, base_domain, first_web_ip)
@@ -90,6 +88,8 @@ class BindInitView(APIView):
                         for bucket_index in range(1, bucket_number + 1):
                             line_temp = "*.{}.{}  IN A {}\n".format(bucket_index, base_domain, first_web_ip)
                             lines_to_write.append(line_temp)
+                        line_temp = "* IN A {}\n".format(first_web_ip)
+                        lines_to_write.append(line_temp)
                         break
 
                     else:
