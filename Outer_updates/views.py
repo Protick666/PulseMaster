@@ -12,7 +12,8 @@ if LOCAL:
     bash_cmd = 'ls -l'
 else:
     zone_path = '/etc/bind/zones'
-    bash_cmd = 'sudo service bind9 restart'
+    bash_cmd_init = 'sudo service bind9 restart'
+    bash_cmd_edit = 'sudo rndc reload'
 
 BASE_FILE_NAME = 'db.exp.net-measurement.net'
 base_domain = 'ttlexp.exp.net-measurement.net.'
@@ -54,7 +55,7 @@ class BindUpdateView(APIView):
                 for line in lines_to_write:
                     f1.write(line)
 
-            bashCommand = bash_cmd
+            bashCommand = bash_cmd_edit
             process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
             output, error = process.communicate()
 
@@ -99,7 +100,7 @@ class BindInitView(APIView):
                 for line in lines_to_write:
                     f1.write(line)
 
-            bashCommand = bash_cmd
+            bashCommand = bash_cmd_init
             process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
             output, error = process.communicate()
 
