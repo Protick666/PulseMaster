@@ -17,8 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 
 app_name = 'Outer_updates'
-from .views import BindUpdateView, BindInitView
+from .views import BindUpdateView, BindInitView, DemoView
 urlpatterns = [
     path('update-bind/', BindUpdateView.as_view(), name='bind_update_api'),
     path('init-bind/', BindInitView.as_view(), name='bind_init_api'),
+    path('demo/', DemoView.as_view(), name='bind_demo_api'),
 ]

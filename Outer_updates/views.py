@@ -113,3 +113,11 @@ class BindInitView(APIView):
         except Exception as e:
             return Response({'success': False, 'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+
+class DemoView(APIView):
+    def get(self, request):
+        try:
+            return Response({'success': True}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'success': False, 'error': "error"}, status=status.HTTP_400_BAD_REQUEST)
+
