@@ -12,8 +12,6 @@ else:
     redis_pass = "20092010"
 
 
-
-
 if LOCAL:
     zone_path = '/Users/protick.bhowmick/zones'
     bash_cmd = 'ls -l'
