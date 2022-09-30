@@ -16,6 +16,7 @@ def home(request):
     template = loader.get_template('../templates/spf_referral_vulnerability_check/index.html')
     return HttpResponse(template.render(context, request))
 
+
 def make_arr(resolver_ip_to_verdict_list):
     count = 0
     tot = 0
@@ -30,46 +31,51 @@ def make_arr(resolver_ip_to_verdict_list):
             count += 1
     return tot, count
 
+
 def contact(request):
     allowed_ttl = [1, 5, 15, 30, 60]
     import json
-    f = open("data/context.json")
-    context = json.load(f)
 
-    # import json
-    # f = open("data/mother_info.json")
-    # d = json.load(f)
-    # # time_of_parse = int(d['time_of_parse'])
-    # from datetime import datetime
-    # dd = datetime.now()
-    # parse_day = dd.strftime("%m/%d/%Y")
-    # a = 1
-    # ans = []
-    # for ttl1 in allowed_ttl:
-    #     ttl = str(ttl1)
-    #     meta = d[ttl]
-    #     local_list = []
-    #
-    #     resolver_ip_to_verdict_list_dump = meta["resolver_ip_to_verdict_list_dump"]
-    #     tot, cnt = make_arr(resolver_ip_to_verdict_list_dump)
-    #
-    #     local_list.append(ttl)
-    #     local_list.append(tot)
-    #     local_list.append(meta["total_asns"])
-    #     local_list.append(meta["total_exitnodes"])
-    #
-    #     local_list.append("{} ({}%)".format(cnt, "{:.2f}".format((cnt * 100)/meta["total_resolvers"]) ))
-    #     ans.append(local_list)
-    # local_list = []
-    # local_list.append("Overall")
-    # local_list.append(d["global"]["total_resolvers"])
-    # local_list.append(d["global"]["total_asns"])
-    # local_list.append(d["global"]["total_exitnodes"])
-    # local_list.append("-")
-    # ans.append(local_list)
+    # f = open("data/context.json")
+    # context = json.load(f)
+
+    import json
+    f = open("data/mother_info.json")
+    d = json.load(f)
+    # time_of_parse = int(d['time_of_parse'])
+    from datetime import datetime
+    dd = datetime.now()
+    parse_day = dd.strftime("%m/%d/%Y")
+    a = 1
+    ans = []
+    for ttl1 in allowed_ttl:
+        ttl = str(ttl1)
+        meta = d[ttl]
+        local_list = []
+
+        resolver_ip_to_verdict_list_dump = meta["resolver_ip_to_verdict_list_dump"]
+        tot, cnt = make_arr(resolver_ip_to_verdict_list_dump)
+
+        local_list.append(ttl)
+        local_list.append(tot)
+        local_list.append(meta["total_asns"])
+        local_list.append(meta["total_exitnodes"])
+
+        local_list.append("{} ({}%)".format(cnt, "{:.2f}".format((cnt * 100)/meta["total_resolvers"]) ))
+        ans.append(local_list)
+    local_list = []
+    local_list.append("Overall")
+    local_list.append(d["global"]["total_resolvers"])
+    local_list.append(d["global"]["total_asns"])
+    local_list.append(d["global"]["total_exitnodes"])
+    local_list.append("-")
+    ans.append(local_list)
 
     template = loader.get_template('../templates/spf_referral_vulnerability_check/contact.html')
-    # context = {"lst": ans, "day": parse_day}
+    context = {"lst": ans, "day": parse_day}
+
+    with open("context.json", "w") as ouf:
+        json.dump(context, fp=ouf)
 
     return HttpResponse(template.render(context, request))
 
