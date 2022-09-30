@@ -74,7 +74,7 @@ def contact(request):
     template = loader.get_template('../templates/spf_referral_vulnerability_check/contact.html')
     context = {"lst": ans, "day": parse_day}
 
-    with open("context.json", "w") as ouf:
+    with open("data/context.json", "w") as ouf:
         json.dump(context, fp=ouf)
 
     return HttpResponse(template.render(context, request))
