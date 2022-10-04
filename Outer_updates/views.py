@@ -4,7 +4,6 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import subprocess
-import redis
 
 if LOCAL:
     redis_pass = None
@@ -73,33 +72,6 @@ class BindUpdateView(APIView):
                 raise Exception
 
             a = 1
-            return Response({'success': True}, status=status.HTTP_200_OK)
-
-        except Exception as e:
-            return Response({'success': False, 'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-
-class BindUpdateViewV2(APIView):
-    def get(self, request):
-        try:
-
-            file_version = request.GET.get('file_version', None)
-            exp_id = request.GET.get('exp_id', None)
-            redis_key = "mode-" + str(exp_id)
-            if exp_id is None:
-                raise Exception
-
-            if file_version not in ['first', 'second', 'remove']:
-                raise Exception
-
-            file_version_to_int = {
-                "first": 1,
-                "second": 3,
-                "remove": 2
-            }
-
-            r.set(redis_key, file_version_to_int[file_version])
-            r.expire(redis_key, 2 * 60)
             return Response({'success': True}, status=status.HTTP_200_OK)
 
         except Exception as e:
