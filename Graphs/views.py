@@ -59,6 +59,7 @@ def contact(request):
         local_list.append(ttl)
         local_list.append(tot)
         local_list.append(meta["total_asns"])
+        print(ttl1, meta["total_asns"])
         local_list.append(meta["total_exitnodes"])
 
         local_list.append("{} ({}%)".format(cnt, "{:.2f}".format((cnt * 100)/meta["total_resolvers"]) ))
