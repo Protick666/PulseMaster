@@ -28,7 +28,6 @@ first_web_ip = '52.44.221.99'
 second_web_ip = '3.220.52.113'
 
 
-r = redis.Redis(host='localhost', port=6379, db=0, password=redis_pass, decode_responses=True)
 
 
 class BindUpdateView(APIView):
