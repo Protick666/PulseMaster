@@ -14,8 +14,8 @@ else:
     zone_path = '/etc/bind/zones'
     bash_cmd = 'sudo service bind9 restart'
 
-BASE_FILE_NAME = 'db.exp.net-measurement.net'
-base_domain = 'ttlexp.exp.net-measurement.net.'
+BASE_FILE_NAME = 'db.ttlexp.me'
+base_domain = 'ttlexp.me.'
 
 first_web_ip = '52.44.221.99'
 second_web_ip = '3.220.52.113'
